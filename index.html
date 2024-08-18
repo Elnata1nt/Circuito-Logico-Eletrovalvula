@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuito Logico de Eletroválvula</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Circuito Logico de Eletroválvula</h1>
+
+        <!-- Controles de Sensores -->
+        <div class="input-group">
+            <label for="sensorA">Sensor A:</label>
+            <select id="sensorA">
+                <option value="0">Vazio (0)</option>
+                <option value="1">Cheio (1)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="sensorB">Sensor B:</label>
+            <select id="sensorB">
+                <option value="0">Vazio (0)</option>
+                <option value="1">Cheio (1)</option>
+            </select>
+        </div>
+
+        <!-- Velocidade da Simulação -->
+        <div class="input-group" id="speedControl" style="display: none;">
+            <label for="speed">Simulation Speed (ms):</label>
+            <input type="number" id="speed" value="1000" min="100">
+        </div>
+
+        <!-- Botão de Verificação -->
+        <button onclick="controlSystem.checkValveStatus()">Verificar Estado da Eletroválvula</button>
+
+        <!-- Saída de Estado da Válvula -->
+        <div class="output" id="output"></div>
+
+        <!-- Log de Eventos -->
+        <div id="log"></div>
+
+        <!-- Visuais dos Recipientes -->
+        <div class="visuals">
+            <div class="tank" id="tankA">
+                <div class="label">A</div>
+                <!-- <div class="faucet faucetA"></div> -->
+                <div class="water" id="waterA"></div>
+            </div>
+            <div class="pipe"></div>
+            <div class="tank" id="tankB">
+                <div class="label">B</div>
+                <!-- <div class="faucet faucetA"></div> -->
+                <div class="water" id="waterB"></div>
+            </div>
+        </div>
+    </div>
+    <script src="circuito.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo */
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Título */
+h1 {
+    color: #3a3a3a;
+    margin-bottom: 20px;
+}
+
+/* Grupos de Inputs */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group select, .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Botão */
+button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Saída e Log */
+.output, #log {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.visuals {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.tank {
+    width: 100px;
+    height: 200px;
+    background: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: relative;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+.tank:hover {
+    background: #d0d0d0;
+}
+
+.tank .label {
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #0069d9;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-size: 20px;
+}
+
+.tank .water {
+    width: 100%;
+    background: #00bfff;
+    transition: height 0.3s;
+}
+
+/* Pipe */
+.pipe {
+    width: 30px;
+    height: 200px;
+    background: #666;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+}
