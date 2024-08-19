@@ -8,6 +8,7 @@ class AdvancedWaterFilterControlSystem {
         this.isManualMode = true;
         this.isFillingA = false;
         this.isFillingB = false;
+        this.isDrainingA = false; // Nova variável para monitorar se o sensorA está secando
     }
 
     toggleMode() {
@@ -36,6 +37,9 @@ class AdvancedWaterFilterControlSystem {
             this.fillTankA();
         } else if (this.sensorA === 1 && this.sensorB === 1) {
             this.checkIfBothTanksFull();
+        } else if (this.sensorA === 1 && !this.isDrainingA) {
+            this.isDrainingA = true;
+            this.drainTankA();
         } else {
             this.valveStatus = false;
         }
@@ -44,7 +48,7 @@ class AdvancedWaterFilterControlSystem {
 
     fillTankAFirst() {
         this.isFillingA = true;
-        const fillInterval = 50;
+        const fillInterval = parseInt(document.getElementById("speed").value, 50) || 100;
         let heightA = parseFloat(document.getElementById("waterA").style.height) || 0;
         let heightB = parseFloat(document.getElementById("waterB").style.height) || 0;
 
@@ -61,26 +65,25 @@ class AdvancedWaterFilterControlSystem {
             } else if (heightA >= 100 && heightB >= 100) {
                 clearInterval(intervalId);
                 this.isFillingA = false;
+                this.isFillingB = false;
                 this.checkIfBothTanksFull();
                 this.addLog("Enchimento concluído.");
+            } else if (heightB >= 100 && heightA < 100) {
+                this.isFillingA = true;
+                this.isFillingB = false;
+                this.fillTankA();
             }
         }, fillInterval);
     }
 
     fillTankA() {
         this.isFillingA = true;
-        const fillInterval = 50;
+        const fillInterval = parseInt(document.getElementById("speed").value, 6) / 2 || 25;
         let heightA = parseFloat(document.getElementById("waterA").style.height) || 0;
         let heightB = parseFloat(document.getElementById("waterB").style.height) || 100;
 
         const intervalId = setInterval(() => {
-            if (heightA < 30 && heightB === 100) {
-                heightA += 0.5;
-                document.getElementById("waterA").style.height = `${heightA}%`;
-            } else if (heightA >= 30 && heightB < 100) {
-                heightB += 0.5;
-                document.getElementById("waterB").style.height = `${heightB}%`;
-            } else if (heightB >= 100 && heightA < 100) {
+            if (heightA < 100) {
                 heightA += 0.5;
                 document.getElementById("waterA").style.height = `${heightA}%`;
             } else if (heightA >= 100 && heightB >= 100) {
@@ -94,27 +97,37 @@ class AdvancedWaterFilterControlSystem {
 
     fillTankB() {
         this.isFillingB = true;
-        const fillInterval = 50;
+        const fillInterval = parseInt(document.getElementById("speed").value, 5) || 50;
         let heightB = parseFloat(document.getElementById("waterB").style.height) || 0;
         let heightA = parseFloat(document.getElementById("waterA").style.height) || 0;
 
         const intervalId = setInterval(() => {
-            if (heightB < 100 && heightA === 0) {
+            if (heightB < 100) {
                 heightB += 0.5;
                 document.getElementById("waterB").style.height = `${heightB}%`;
-            } else if (heightB >= 100 && heightA < 30) {
-                heightA += 0.5;
-                document.getElementById("waterA").style.height = `${heightA}%`;
-            } else if (heightA >= 30 && heightB < 100) {
-                heightB += 0.5;
-                document.getElementById("waterB").style.height = `${heightB}%`;
-            } else if (heightA >= 100 && heightB >= 100) {
+            } else if (heightB >= 100 && heightA < 100) {
                 clearInterval(intervalId);
                 this.isFillingB = false;
-                this.checkIfBothTanksFull();
-                this.addLog("Enchimento concluído.");
+                this.isFillingA = true;
+                this.fillTankA(); // Continue a encher o tanque A
             }
         }, fillInterval);
+    }
+
+    drainTankA() {
+        const drainInterval = parseInt(document.getElementById("speed").value, 5) || 50;
+        let heightA = parseFloat(document.getElementById("waterA").style.height) || 100;
+
+        const intervalId = setInterval(() => {
+            if (heightA > 30) {
+                heightA -= 0.5;
+                document.getElementById("waterA").style.height = `${heightA}%`;
+            } else {
+                clearInterval(intervalId);
+                this.isDrainingA = false;
+                this.fillTankB(); // Começa a encher o tanque B quando o tanque A chega a 30%
+            }
+        }, drainInterval);
     }
 
     checkIfBothTanksFull() {
@@ -128,7 +141,7 @@ class AdvancedWaterFilterControlSystem {
 
     displayValveStatus() {
         const output = document.getElementById("output");
-        output.innerHTML = `Valvula: ${this.valveStatus ? "Aberto" : "Fechado"}`;
+        output.innerHTML = `Válvula: ${this.valveStatus ? "Aberta" : "Fechada"}`;
     }
 
     addLog(message) {
@@ -151,4 +164,10 @@ document.getElementById("sensorA").addEventListener("change", function() {
 
 document.getElementById("sensorB").addEventListener("change", function() {
     controlSystem.updateSensors(document.getElementById("sensorA").value, this.value);
+});
+
+document.getElementById("speed").addEventListener("input", function() {
+    if (controlSystem.isManualMode) {
+        clearInterval(controlSystem.simulationInterval);
+    }
 });
