@@ -1,132 +1,211 @@
-/* Reset básico */
-* {
+/* Estilo geral */
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-/* Corpo */
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f4f8;
-    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Container */
 .container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
     width: 90%;
-    max-width: 800px;
+    max-width: 1200px;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+header h1 {
+    font-size: 2.5rem;
     text-align: center;
+    margin-bottom: 2rem;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Título */
-h1 {
-    color: #3a3a3a;
-    margin-bottom: 20px;
+/* Membros */
+.members h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ffcc00;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Grupos de Inputs */
-.input-group {
-    margin-bottom: 20px;
+.members ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.input-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+.members ul li {
+    background: #282c34;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
-.input-group select, .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.members ul li:hover {
+    transform: translateY(-5px);
+    background: #ffcc00;
+    color: #282c34;
 }
 
-/* Botão */
-button {
-    background: #007bff;
-    color: #fff;
+/* Controles de Sensores */
+.sensor-controls .input-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sensor-controls label {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.sensor-controls select {
+    padding: 0.5rem;
     border: none;
-    padding: 15px 30px;
-    border-radius: 5px;
+    border-radius: 10px;
+    background: #282c34;
+    color: #ffcc00;
+    transition: background 0.3s ease;
+}
+
+.sensor-controls select:hover {
+    background: #ffcc00;
+    color: #282c34;
+}
+
+/* Velocidade da Simulação */
+.simulation-speed .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.simulation-speed input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background: #282c34;
+    color: #ffcc00;
+    margin-top: 0.5rem;
+    transition: background 0.3s ease;
+}
+
+.simulation-speed input:hover {
+    background: #ffcc00;
+    color: #282c34;
+}
+
+/* Botão de Verificação */
+.control button {
+    padding: 1rem 2rem;
+    background: #ffcc00;
+    color: #282c34;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    margin: 0 auto;
 }
 
-button:hover {
-    background: #0056b3;
+.control button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Saída e Log */
-.output, #log {
-    margin-top: 20px;
-    padding: 10px;
-    background: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* Saída de Estado da Válvula */
+.output {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffcc00;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Log de Eventos */
+.event-log {
+    margin-top: 2rem;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.event-log #log {
+    color: #ffcc00;
+    font-size: 1rem;
+}
+
+/* Visuais dos Recipientes */
 .visuals {
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 3rem;
 }
 
 .tank {
-    width: 100px;
-    height: 200px;
-    background: #e0e0e0;
-    border: 1px solid #ccc;
+    width: 150px;
+    height: 300px;
+    background: #282c34;
     border-radius: 10px;
     position: relative;
-    margin: 0 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s;
-}
-
-.tank:hover {
-    background: #d0d0d0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .tank .label {
-    background: #007bff;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #0069d9;
     position: absolute;
-    top: 0;
-    width: 100%;
-    font-size: 20px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffcc00;
+    color: #282c34;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.tank .water {
-    width: 100%;
-    background: #00bfff;
-    transition: height 0.3s;
-}
-
-/* Pipe */
 .pipe {
-    width: 30px;
-    height: 200px;
-    background: #666;
-    border-radius: 5px;
-    position: relative;
-    z-index: 1;
+    width: 60px;
+    height: 20px;
+    background: #ffcc00;
+    margin: 0 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
+.water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%; /* Ajustado para deixar os recipientes vazios */
+    background: #00aaff;
+    transition: height 0.3s ease;
+    box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.5);
+}
+
